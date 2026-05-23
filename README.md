@@ -105,8 +105,8 @@ AEMS/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Kushagra-1210/Aakash-Data-Management-Project.git
-cd Aakash-Data-Management-Project
+git clone https://github.com/Kushagra-1210/Aakash-Enquiry-Management-System.git
+cd Aakash-Enquiry-Management-System
 ```
 
 ### 2. Install dependencies
@@ -121,7 +121,7 @@ TELEGRAM_BOT_TOKEN=your_token
 GROQ_API_KEY=your_groq_key
 GOOGLE_SHEET_ID=your_sheet_id
 AAKASH_GROUP_ID=your_group_id
-FATHER_CHAT_ID=your_authorized_chat_id
+AUTHORIZED_CHAT_ID=your_authorized_chat_id
 ```
 
 ### 4. Add Google credentials
