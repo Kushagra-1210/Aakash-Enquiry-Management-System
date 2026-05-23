@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+import os
+
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -17,10 +20,17 @@ def _worksheet():
     if not config.GOOGLE_SHEET_ID:
         raise ValueError("GOOGLE_SHEET_ID is not set in .env")
 
-    creds = Credentials.from_service_account_file(
-        config.GOOGLE_CREDENTIALS_FILE,
-        scopes=SCOPES,
-    )
+    credentials_json = os.getenv("GOOGLE_CREDENTIALS_JSON")
+    if credentials_json:
+        creds = Credentials.from_service_account_info(
+            json.loads(credentials_json),
+            scopes=SCOPES,
+        )
+    else:
+        creds = Credentials.from_service_account_file(
+            config.GOOGLE_CREDENTIALS_FILE,
+            scopes=SCOPES,
+        )
     client = gspread.authorize(creds)
     spreadsheet = client.open_by_key(config.GOOGLE_SHEET_ID)
     return spreadsheet.sheet1
