@@ -1,139 +1,111 @@
-# 🚀 Aakash Data Management Project (ADMP)
-> *Because writing on paper is so 2005.*
+# Aakash Enquiry Management System (AEMS)
+
+AI-powered enquiry management system for Aakash Institute — converts unstructured counselor notes and handwritten forms into structured Google Sheets data, with instant team notifications via Telegram.
 
 ---
 
-## 🤯 What Is This?
+## Overview
 
-A **zero-cost, fully automated, AI-powered enquiry management system** built for Aakash Institute — where a counselor just *talks* to a Telegram bot in casual Hinglish, and the entire data entry, storage, and team notification happens **automatically.**
-
-No app. No form. No manual typing. Just chat.
+Counselors at coaching institutes spend significant time on manual data entry after every student enquiry. AEMS eliminates this entirely. A counselor sends enquiry details (typed notes, Hinglish, or a photo of the registration form) to a Telegram bot. The AI parses it, shows a structured preview for confirmation, saves it to Google Sheets, and notifies the internal team — all in under 30 seconds.
 
 ---
 
-## ⚡ The Magic in 10 Seconds
+## How It Works
 
 ```
-Father types casually on Telegram
-          ↓
-AI reads it (even if it's messy Hinglish)
-          ↓
-Structured data appears in Google Sheets
-          ↓
-Team gets notified instantly
-          ↓
-You close your laptop and go home
-```
-
----
-
-## 🧠 The Brain
-
-| Model | Job |
-|-------|-----|
-| `llama-3.3-70b-versatile` | Reads text messages |
-| `meta-llama/llama-4-scout-17b-16e-instruct` | Reads handwritten forms from photos |
-
-Yes. It reads **handwriting.** From a photo. Taken on a phone. In bad lighting. And still gets it right.
-
----
-
-## 🏗️ Project Structure
-
-```
-ADMP/
-├── main.py          — The boss. Controls everything.
-├── config.py        — Keeps secrets safe
-├── parser.py        — The AI brain
-├── sheets.py        — Talks to Google Sheets
-├── notifier.py      — Pings the team
-├── test.py          — Makes sure nothing is broken
-├── credentials.json — Google's ID card (keep private!)
-├── .env             — All the secret keys (NEVER share)
-├── requirements.txt — All the tools needed
-└── .gitignore       — Hides the secrets from GitHub
+Counselor sends text/photo → Telegram Bot
+        ↓
+AI parses and structures the data (Groq + Llama)
+        ↓
+Counselor reviews and confirms the preview
+        ↓
+Data saved to Google Sheets
+        ↓
+Internal team notified via Telegram group
 ```
 
 ---
 
-## 🎯 Features That Slap
+## AI Models
 
-- ✅ **Hinglish Support** — Type like you talk. AI understands.
-- ✅ **Photo + Text** — Send a photo of the form AND add extra details in text. Bot merges both.
-- ✅ **Never Guesses** — Missing info stays blank. No fake data. Ever.
-- ✅ **Confirmation Step** — Father sees a preview before anything gets saved.
-- ✅ **Smart Lead Detection** — Automatically figures out if it's a Walk In, Reference, Banner, etc.
-- ✅ **Header-Safe Sheets** — Add/delete/reorder columns in the sheet anytime. Bot never breaks.
-- ✅ **24/7 on Railway** — Runs forever. Even when the laptop is off.
-- ✅ **Father-Only Access** — Unauthorized users get blocked instantly.
-- ✅ **Team Notifications** — Internal Telegram group gets a beautiful formatted message every time.
+| Model | Role |
+|-------|------|
+| `llama-3.3-70b-versatile` | Parses text-based enquiry notes |
+| `meta-llama/llama-4-scout-17b-16e-instruct` | Extracts data from handwritten form photos |
+
+The vision model handles handwritten Indian registration forms — including mixed Hindi/English fields, date/DOB disambiguation, and partial handwriting — with high accuracy.
 
 ---
 
-## 📋 Data Captured Per Enquiry
+## Features
+
+- **Multimodal Input** — Accepts typed notes, Hinglish, photos of forms, or a combination
+- **Zero Hallucination Policy** — Missing fields stay blank; the model never guesses
+- **Confirmation Step** — Structured preview shown before any data is written
+- **Smart Lead Source Detection** — Automatically classifies Walk In, Reference, Banner, Social Media, etc.
+- **Header-Safe Sheet Writing** — Reads column headers dynamically; survives sheet restructuring
+- **Access Control** — Bot responds only to the authorized Telegram user
+- **Team Notifications** — Formatted enquiry summary posted to internal group on every save
+- **24/7 Deployment** — Hosted on Railway; runs continuously without any local machine
+
+---
+
+## Data Captured Per Enquiry
+
+| Field | Description |
+|-------|-------------|
+| Date | Enquiry/visit date |
+| Student Name | Full name |
+| Parent Name | Father/guardian name |
+| Student Phone | Student contact number |
+| Parent Phone | Parent contact number |
+| Class & Course | e.g. `11 \| Medical (NEET)` |
+| Gender & DOB | e.g. `Male \| 14 Oct 2010` |
+| School | Current school name |
+| Address | Residential address |
+| Lead Source | Walk In / Reference / Banner / Social Media / Online / Telecaller |
+| Counseling Notes | Fees, scholarships, discounts, remarks |
+| Follow Up | Next follow-up date or action |
+| N/A | Any useful detail that doesn't fit other columns |
+
+---
+
+## Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| Python | Core language |
+| python-telegram-bot | Bot framework |
+| Groq API | LLM inference (free tier) |
+| Google Sheets API | Data storage via gspread |
+| Railway | 24/7 cloud hosting |
+| GitHub | Version control |
+
+**Total monthly infrastructure cost: ₹0**
+
+---
+
+## Project Structure
 
 ```
-📅 Date
-👤 Student Name
-👨‍👩‍👧 Parent Name
-📞 Student Phone
-📞 Parent Phone
-📚 Class & Course
-🎂 Gender & DOB
-🏫 School
-📍 Address
-🔍 Lead Source
-📝 Counseling Notes
-⏰ Follow Up
-⚠️  N/A (anything unrecognized)
+AEMS/
+├── main.py          — Bot logic, session management, message handlers
+├── config.py        — Environment variable loading and constants
+├── parser.py        — Groq AI parsing for text and images
+├── sheets.py        — Google Sheets integration
+├── notifier.py      — Telegram group notification formatter
+├── test.py          — Parser testing (mock and live modes)
+├── requirements.txt — Dependencies
+└── .gitignore       — Excludes credentials and secrets
 ```
 
 ---
 
-## 🔔 What the Team Sees
+## Setup
 
-Every enquiry triggers this in the internal group:
-
-```
-🆕 New Enquiry — 23 May 2026
-
-👤 Student: Sonam Kakkar
-👨‍👩‍👧 Parent: —
-📞 Student Phone: 9958793545
-📞 Parent Phone: —
-📚 Class & Course: 9 | Foundation
-🎂 Gender & DOB: Male | 20 Jun 2012
-🏫 School: Matrikiran School
-📍 Address: —
-🔍 Lead Source: Fresh Walk In
-📝 Notes: First time visit. Interested in Foundation.
-⏰ Follow Up: 25 May 2026
-```
-
-Clean. Instant. No effort.
-
----
-
-## 🛠️ Tech Stack
-
-| Tool | Purpose | Cost |
-|------|---------|------|
-| Python | Core language | ₹0 |
-| python-telegram-bot | Bot framework | ₹0 |
-| Groq API | AI engine | ₹0 |
-| Google Sheets API | Database | ₹0 |
-| Railway | 24/7 hosting | ₹0 |
-| GitHub | Version control | ₹0 |
-
-### 💰 Total Monthly Cost: ₹0
-
----
-
-## 🚀 Setup in 5 Steps
-
-### 1. Clone the repo
+### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/Aakash-Data-Management-Project.git
+git clone https://github.com/Kushagra-1210/Aakash-Data-Management-Project.git
 cd Aakash-Data-Management-Project
 ```
 
@@ -142,66 +114,59 @@ cd Aakash-Data-Management-Project
 pip install -r requirements.txt
 ```
 
-### 3. Fill in `.env`
+### 3. Configure environment variables
+Create a `.env` file in the project root:
 ```env
 TELEGRAM_BOT_TOKEN=your_token
 GROQ_API_KEY=your_groq_key
 GOOGLE_SHEET_ID=your_sheet_id
 AAKASH_GROUP_ID=your_group_id
-FATHER_CHAT_ID=your_father_id
+FATHER_CHAT_ID=your_authorized_chat_id
 ```
 
-### 4. Add `credentials.json`
-Download from Google Cloud service account and place in project root.
+### 4. Add Google credentials
+Download the service account JSON from Google Cloud Console and place it as `credentials.json` in the project root. For cloud deployment, set the `GOOGLE_CREDENTIALS_JSON` environment variable with the full JSON contents instead.
 
-### 5. Run
+### 5. Run locally
 ```bash
 python main.py
 ```
 
 ---
 
-## 🧪 Testing
+## Testing
 
-Test the AI parser without Telegram or Sheets:
 ```bash
-# Mock test (no API key needed)
+# Mock test — no API keys required
 python test.py
 
-# Live Groq test
+# Live test — uses real Groq API
 python test.py --live
 ```
 
 ---
 
-## 🔒 Security
+## Deployment (Railway)
 
-- `.env` and `credentials.json` are in `.gitignore` — never pushed to GitHub
-- Bot only responds to one authorized Telegram user
-- Google Sheet access limited to service account only
-- No student data stored anywhere except your own Google Sheet
-
----
-
-## 🌐 Deploy 24/7 (Free)
-
-1. Push to GitHub
-2. Connect repo to **Railway.app**
-3. Add environment variables in Railway dashboard
-4. Deploy — runs forever
-
-Your laptop can be off. In another city. Doesn't matter.
+1. Push repository to GitHub
+2. Create a new project on [Railway](https://railway.app) and connect the repo
+3. Add all environment variables from `.env` in the Railway dashboard
+4. Add `GOOGLE_CREDENTIALS_JSON` with the full contents of `credentials.json`
+5. Deploy — Railway runs the bot continuously
 
 ---
 
-## 👨‍💻 Built By
+## Security
 
-**Kushagra Bansal**
-Built with 0 budget, 100% automation, and the energy of someone who never wants to do manual data entry again.
-
----
-
-> *"The best automation is the one your father can use without any training."*
+- `credentials.json` and `.env` are excluded from version control via `.gitignore`
+- Bot enforces single-user access control via Telegram chat ID
+- Google Sheet access is scoped to the service account only
+- No student data is stored outside the organization's own Google Sheet
 
 ---
 
+## Built By
+
+**Kushagra Bansal**  
+B.Tech CSE, Shiv Nadar University  
+[GitHub](https://github.com/Kushagra-1210) · [LinkedIn](https://www.linkedin.com/in/kushagra-kb1210)
