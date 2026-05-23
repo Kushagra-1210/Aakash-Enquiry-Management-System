@@ -194,16 +194,6 @@ Your laptop can be off. In another city. Doesn't matter.
 
 ---
 
-## 🗺️ Roadmap
-
-- [ ] WhatsApp support
-- [ ] Monthly analytics auto-report
-- [ ] Follow-up reminder system
-- [ ] Multi-branch support
-- [ ] Management dashboard
-
----
-
 ## 👨‍💻 Built By
 
 **Kushagra Bansal**
@@ -215,4 +205,3 @@ Built with 0 budget, 100% automation, and the energy of someone who never wants 
 
 ---
 
-⭐ Star this repo if it saved you from spreadsheet hell.
